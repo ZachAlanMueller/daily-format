@@ -68,24 +68,31 @@ function setRoutesRows() {
     // Finished Sizing
 function setCommContent(){
     var inputText = document.getElementById("commInput").value;
-    var splitText = inputText.split(",");
-    setCommRows(splitText.length);
-    document.getElementById("commNumber").innerHTML = splitText.length;
-    var table = document.getElementById("commTable");
-    for(var i = 1; i < table.rows.length; i++) {
-        var textItems = splitText[i-1].split(" ");
-        if (textItems[0] == "") {
-            table.rows[i].cells[0].innerHTML = textItems[1];
-            var DEXTime = textItems[2] + " " + textItems[3];
-            table.rows[i].cells[1].innerHTML = DEXTime;
-            console.log(textItems);
+    $("#commTable").show();
+    document.getElementById("commNotes").innerHTML = "";
+    if (inputText != "" && inputText != " ") {
+        var splitText = inputText.split(",");
+        setCommRows(splitText.length);
+        document.getElementById("commNumber").innerHTML = splitText.length;
+        var table = document.getElementById("commTable");
+        for(var i = 1; i < table.rows.length; i++) {
+            var textItems = splitText[i-1].split(" ");
+            if (textItems[0] == "") {
+                table.rows[i].cells[0].innerHTML = textItems[1];
+                var DEXTime = textItems[2] + " " + textItems[3];
+                table.rows[i].cells[1].innerHTML = DEXTime;
+            }
+            else {
+                table.rows[i].cells[0].innerHTML = textItems[0];
+                var DEXTime = textItems[1] + " " + textItems[2];
+                table.rows[i].cells[1].innerHTML = DEXTime;
+            }
         }
-        else {
-            table.rows[i].cells[0].innerHTML = textItems[0];
-            var DEXTime = textItems[1] + " " + textItems[2];
-            table.rows[i].cells[1].innerHTML = DEXTime;
-            console.log(textItems);
-        }
+    }
+    else {
+        $("#commTable").hide();
+        document.getElementById("commNotes").innerHTML = "None";
+        document.getElementById("commNumber").innerHTML = 0;
     }
 }
 // 62 2015-07-02 13:36:49, 47 2015-06-27 14:36:08, 14 2015-06-013 14:20:22 
@@ -399,7 +406,7 @@ img {
                                   <table style="width:100%" class="tables" cellspacing="0" id="breakTable">
                                   <tr>
                                     <th>Location</th>
-                                    <th>Machine ID</th>
+                                    <th>Machine</th>
                                     <th>Description</th>
                                     <th>Time</th>
                                   </tr>
